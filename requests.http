@@ -1,0 +1,15 @@
+POST http://localhost:3000/v1/province/
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZiMmU3NTkyNWJiYzYxZmZhNzcwOGNiIiwidG9rZW5faWQiOiI1ZmIyZTc1OTI1YmJjNjFmZmE3NzA4Y2MiLCJpYXQiOjE2MDU1NjAxNTN9.EDxGbg-wKqMtKNSSihsS7oHY5LQx9oxkbf7q3Lyx8eU
+
+{
+    "name": "Neuquen",
+    "enabled": true
+}
+
+###
+GET http://localhost:3000/v1/profile/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZiMmU1MTAyNWJiYzYxZmZhNzcwOGM1IiwidG9rZW5faWQiOiI1ZmIyZTg5MzI1YmJjNjFmZmE3NzA4ZDciLCJpYXQiOjE2MDU1NjA0Njd9.iww18_ceR8YOByjMmGhIZjgBpUanRaeoGLp0DP0_Q_E
+###
+
+GET http://localhost:3000/v1/image/b9778f80-284f-11eb-abfc-d5d95cd4a97d
