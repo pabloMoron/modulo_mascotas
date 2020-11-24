@@ -1,9 +1,9 @@
 POST http://localhost:3000/v1/province/
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZiMmU3NTkyNWJiYzYxZmZhNzcwOGNiIiwidG9rZW5faWQiOiI1ZmIyZTc1OTI1YmJjNjFmZmE3NzA4Y2MiLCJpYXQiOjE2MDU1NjAxNTN9.EDxGbg-wKqMtKNSSihsS7oHY5LQx9oxkbf7q3Lyx8eU
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZiN2VmOTBlYTViMWYxNjM0ZmU3MDQzIiwidG9rZW5faWQiOiI1ZmI3ZWZkMmVhNWIxZjE2MzRmZTcwNDUiLCJpYXQiOjE2MDU4OTAwMDJ9.LydyRZdPrX-knkQOcb-XxyVBgjgU7xCH9CZggMBNlS4
 
 {
-    "name": "Neuquen",
+    "name": "Buenos Aires",
     "enabled": true
 }
 
@@ -12,4 +12,11 @@ GET http://localhost:3000/v1/profile/
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZiMmU1MTAyNWJiYzYxZmZhNzcwOGM1IiwidG9rZW5faWQiOiI1ZmIyZTg5MzI1YmJjNjFmZmE3NzA4ZDciLCJpYXQiOjE2MDU1NjA0Njd9.iww18_ceR8YOByjMmGhIZjgBpUanRaeoGLp0DP0_Q_E
 ###
 
-GET http://localhost:3000/v1/image/b9778f80-284f-11eb-abfc-d5d95cd4a97d
+GET localhost:3000/v1/image/bfb73330-2b4e-11eb-86ba-3724b418dd5b
+###
+GET http://localhost:3000/v1/profile/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZiN2YwZTBlYTViMWYxNjM0ZmU3MDRhIiwidG9rZW5faWQiOiI1ZmI3ZjBlMGVhNWIxZjE2MzRmZTcwNGIiLCJpYXQiOjE2MDU4OTAyNzJ9.YPzRx8TruaScrK_RWehudze5SGfu3PpLk6AO2ZNL2B8
+
+###
+GET http://localhost:3000/v1/profile/avatar
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWZiN2YwZTBlYTViMWYxNjM0ZmU3MDRhIiwidG9rZW5faWQiOiI1ZmI3ZjBlMGVhNWIxZjE2MzRmZTcwNGIiLCJpYXQiOjE2MDU4OTAyNzJ9.YPzRx8TruaScrK_RWehudze5SGfu3PpLk6AO2ZNL2B8

@@ -15,6 +15,8 @@ export function initModule(app: express.Express) {
     .get(onlyLoggedIn, current)
     .post(onlyLoggedIn, updateBasicInfo);
 
+    app.route("/v1/profile/avatar")
+    .get(onlyLoggedIn, currentAvatar)
 }
 
 /**
@@ -97,5 +99,12 @@ async function updateBasicInfo(req: ISessionRequest, res: express.Response) {
     email: result.email,
     address: result.address,
     province: result.province,
+  });
+}
+
+async function currentAvatar(req: ISessionRequest, res: express.Response){
+  const result = await service.currentAvatar(req.user.user_id);
+  res.json({
+    avatar:result
   });
 }

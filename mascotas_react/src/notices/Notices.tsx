@@ -1,6 +1,8 @@
 import React from "react";
 import StoryReel from "./StoryReel"
 import "./Notices.css";
+import Publisher from "./Publisher";
+import Feed from "./Feed";
 
 /**
  * La estructura seria la siguiente:
@@ -10,8 +12,11 @@ import "./Notices.css";
  */
 export default function Notices() {
 
-    return (<div className="feed">
+    return (<div className="notices">
         <h1>Noticias</h1>
-        <StoryReel/>
+        <StoryReel/> 
+        <Publisher/>
+        {/* <Feed/> */}
     </div>);
 }
+

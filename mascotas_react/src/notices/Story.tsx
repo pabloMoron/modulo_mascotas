@@ -3,17 +3,16 @@ import {Avatar} from "@material-ui/core";
 import "./Story.css";
 interface StoryProps{
     avatar:string,
-    profileSrc:string,
+    Image:string,
     title: string
 }
 
 export default function Story(props: StoryProps) {
     
     return (
-        <div className="story">
-            ASD
-            <Avatar src={props.avatar}></Avatar>
-            Esta es una historia
+        <div className="story" style={{backgroundImage:`url(${props.Image})`}}>
+            <Avatar src={props.avatar} className="story__avatar"/>
+            <h4>{props.title}</h4>
         </div>
     )
 }

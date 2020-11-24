@@ -4,6 +4,7 @@ import { IProfile, Profile } from "./schema";
 const mongoose = require("mongoose");
 import * as error from "../server/error";
 import * as provinces from "../provinces/service";
+import { promises } from "dns";
 
 async function findForUser(userId: string): Promise<IProfile> {
   return await Profile.findOne({
@@ -137,5 +138,18 @@ export async function updateProfilePicture(userId: string, imageId: string): Pro
     return Promise.resolve(profile);
   } catch (err) {
     return Promise.reject(err);
+  }
+}
+
+export async function currentAvatar(userId:string){
+  try{
+    let profile = await findForUser(userId);
+    console.log(userId)
+    if(!profile){
+      return Promise.resolve(null)
+    }
+    return Promise.resolve(profile.picture)
+  }catch(err){
+    return Promise.reject(err)
   }
 }
