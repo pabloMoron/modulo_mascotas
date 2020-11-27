@@ -16,7 +16,7 @@ export default function Notices() {
         <h1>Noticias</h1>
         <StoryReel/> 
         <Publisher/>
-        {/* <Feed/> */}
+        <Feed/>
     </div>);
 }
 

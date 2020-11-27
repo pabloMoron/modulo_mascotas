@@ -1,17 +1,17 @@
 import { Avatar } from '@material-ui/core'
 import React, { useEffect, useRef, useState } from 'react'
 import Form from '../common/components/Form'
-import FormAcceptButton from '../common/components/FormAcceptButton'
 import './Publisher.css'
 import './NoticeServices'
-import FindAvatar from './NoticeServices'
+import {FindAvatar} from './NoticeServices'
 import ImagePreview from '../common/components/ImagePreview'
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VideocamIcon from '@material-ui/icons/Videocam';
+import { Link } from 'react-router-dom'
 
 export default function Publisher() {
-    const [image, setImage] = useState('/assets/pig_nose.ico');
+    const [image, setImage] = useState('/assets/pig_face.ico');
     const [message, setMessage] = useState('')
     const [avatar, setAvatar] = useState('')
     const fileInput = useRef<HTMLInputElement>(null)
@@ -32,9 +32,6 @@ export default function Publisher() {
     const PreviewImage = (image: string) => { //Viene un url desde el handler de ImagePreview
         setImage(image)
     }
-
-
-
 
     const HandleSubmit = () => {
         alert('Publishing!!' + message)
@@ -108,10 +105,12 @@ export default function Publisher() {
                     <VideoLibraryIcon style={{ color: "red" }} />
                     <h3>Video</h3>
                 </div>
-                <div className="publisher__option" onClick={HandleLive}>
+                    <Link to="/Oops">
+                <div className="publisher__option">
                     <VideocamIcon style={{ color: "red" }} />
-                    <h3>Transimit en vivo</h3>
+                    <h3>Transmitir en vivo</h3>
                 </div>
+                    </Link>
             </div>
         </div>
     )
