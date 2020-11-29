@@ -1,25 +1,63 @@
 import { Avatar } from '@material-ui/core'
 import { ChatBubbleOutline, Pets, Share, ThumbUp } from '@material-ui/icons'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { IPost } from './NoticeServices'
+import { getCurrentProfile } from '../profile/profileService'
+import { loadPet } from "../pets/petsService"
 import './Post.css'
+import { environment } from '../app/environment/environment'
 
-interface PostProps {
-    avatar: string;
-    userName: string;
-    timeStamp: string;
-    image: string;
-    message: string;
-    pet:string;
-}
+function Post(props: IPost) {
+    const [avatar, setAvatar] = useState("")
+    const [name, setName] = useState("")
+    const [petName, setPetName] = useState("")
+    const [image, setImage] = useState("")
+    
+    const loadProfile = async () => {
+        try{
+            const profileResult = await getCurrentProfile();
+            setName(profileResult.name);
+            setAvatar(environment.backendUrl+'/v1/image/'+profileResult.picture);
+            console.log("AVATAR: "+environment.backendUrl+'v1/image/'+profileResult.picture);
+        }catch(error){
+            console.log(error);
+        }
+    }
 
-function Post(props: PostProps) {
+    const loadImage = async ()=>{
+        try {
+            if(props.imageId) setImage(environment.backendUrl+'/v1/image/'+props.imageId)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const findPet = async () =>{
+        try {
+            const petResult=await loadPet(props.petId);
+            setPetName(petResult.name);   
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() =>  {
+        void loadProfile();
+        void findPet();
+        if(props.imageId)
+        void loadImage();
+        else
+        setImage('/assets/gato.gif');
+        ;
+    }, [])
+
     return (
         <div className="post">
             <div className="post__top">
-                <Avatar src={props.avatar} className="post__avatar" />
+                <Avatar src={avatar} className="post__avatar" />
                 <div className="post__topInfo">
-                    <h3>{props.userName}</h3>
-                    <p>{props.timeStamp}</p>
+                    <h3>{name}</h3>
+                    <p>{props.timestamp}</p>
                 </div>
             </div>
 
@@ -28,7 +66,7 @@ function Post(props: PostProps) {
             </div>
 
             <div className="post__image">
-                <img src={props.image} />
+                <img src={image} />
             </div>
 
             <div className="post__options">
@@ -46,7 +84,7 @@ function Post(props: PostProps) {
                 </div>
                 <div className="post__option">
                     <Pets/>
-                    <p>{props.pet}</p>
+                    <p>{petName}</p>
                 </div>
             </div>
         </div>

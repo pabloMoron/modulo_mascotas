@@ -3,6 +3,7 @@
 import * as mongoose from "mongoose";
 
 export interface IProfile extends mongoose.Document {
+  id:string;
   name: string;
   phone: string;
   email: string;

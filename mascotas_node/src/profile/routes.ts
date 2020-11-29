@@ -46,6 +46,7 @@ export function initModule(app: express.Express) {
 async function current(req: ISessionRequest, res: express.Response) {
   const result = await service.read(req.user.user_id);
   res.json({
+    id: result.id,
     name: result.name,
     phone: result.phone,
     email: result.email,
