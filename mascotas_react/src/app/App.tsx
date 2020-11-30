@@ -14,6 +14,8 @@ import Menu from "./Menu"
 import Toolbar from "./Toolbar"
 import Notices from "../notices/Notices"
 import Oops from "../Oops/Oops"
+import SinglePost from "../common/components/noticesComponents/SinglePost"
+
 
 export default function App() {
   return (
@@ -43,6 +45,7 @@ export default function App() {
               <LoggedInRoute path="/editPet/:id" component={NewPet} />
               <LoggedInRoute path="/notices" component={Notices} />
               <LoggedInRoute path="/Oops" component={Oops}/>
+              <LoggedInRoute path="/posts/:id" component={SinglePost}/>
             </td>
           </tr>
         </tbody>

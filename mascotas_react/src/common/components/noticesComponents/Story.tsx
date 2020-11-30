@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {Avatar} from "@material-ui/core";
 import "./Story.css";
-import {IStory} from "./NoticeServices"
+import { IStory } from "../../../notices/NoticeServices";
 
 export default function Story(props: IStory) {
     

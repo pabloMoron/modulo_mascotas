@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { IPost, FetchPosts } from './NoticeServices';
+import { IPost, FetchPosts } from '../../../notices/NoticeServices';
 import InfiniteScroll from "react-infinite-scroll-component";
-import Post from './Post';
 import './Feed.css';
+import Post from './Post';
 
 function Feed() {
     const [posts, setPosts] = useState<IPost[]>([]);
@@ -15,7 +15,7 @@ function Feed() {
         const result = await FetchPosts(page, limit, timestamp);
         let newPosts = [...posts].concat(result.posts);
         
-        if(result.posts.length==0){
+        if(result.posts.length==0){ //Paro el scroll para que muestre el mensaje de fin
             sethasMore(false);
             return
         }
@@ -27,7 +27,8 @@ function Feed() {
 
     useEffect(() => {
         void findPosts();
-    }, [])
+
+    },[])
 
     return (
         ///Me acabo de dar cuenta que puedo pasar el id del post
@@ -40,7 +41,7 @@ function Feed() {
                 loader={<h4>Fetching data...</h4>}
                 endMessage={
                     <p style={{ textAlign: 'center' }}>
-                        <b>Ya viste todo bro</b>
+                        <b>Felicidades estás al día</b>
                     </p>
                 }>
 

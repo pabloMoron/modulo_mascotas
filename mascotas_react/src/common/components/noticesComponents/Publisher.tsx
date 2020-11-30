@@ -1,17 +1,14 @@
 import { Avatar } from '@material-ui/core'
 import React, { useEffect, useRef, useState } from 'react'
-import Form from '../common/components/Form'
 import './Publisher.css'
-import './NoticeServices'
-import { FindAvatar, UploadPost } from './NoticeServices'
-import ImagePreview from '../common/components/ImagePreview'
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import { Link } from 'react-router-dom'
-import { IPost } from './NoticeServices';
-import { Pet, loadPets, loadPet } from '../pets/petsService'
-import { ErrorHandler } from '../common/utils/ErrorHandler'
+import { FindAvatar, IPost, UploadPost } from '../../../notices/NoticeServices';
+import { Pet, loadPets } from '../../../pets/petsService';
+import Form from '../Form';
+import ImagePreview from '../ImagePreview';
 
 export default function Publisher() {
     const [image, setImage] = useState('/assets/pig_face.ico');
@@ -79,8 +76,8 @@ export default function Publisher() {
         if (url) {
             setImage(url)
         }
-
     }
+
     const HandlePhoto = () => {
         fileInput.current?.click()
     }
@@ -133,6 +130,7 @@ export default function Publisher() {
                 </div>
                 <div className="publisher__option" onClick={HandleVideo}>
                     <VideoLibraryIcon style={{ color: "red" }} />
+                    
                     <h3>Video</h3>
                 </div>
                 <Link to="/Oops">

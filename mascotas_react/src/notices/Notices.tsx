@@ -1,8 +1,8 @@
 import React from "react";
-import StoryReel from "./StoryReel"
 import "./Notices.css";
-import Publisher from "./Publisher";
-import Feed from "./Feed";
+import Feed from "../common/components/noticesComponents/Feed";
+import Publisher from "../common/components/noticesComponents/Publisher";
+import StoryReel from "../common/components/noticesComponents/StoryReel";
 
 /**
  * La estructura seria la siguiente:

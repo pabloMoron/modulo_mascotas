@@ -1,12 +1,12 @@
 import { Avatar } from '@material-ui/core'
 import { ChatBubbleOutline, Pets, Share, ThumbUp } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
-import { IPost } from './NoticeServices'
-import { getCurrentProfile } from '../profile/profileService'
-import { loadPet } from "../pets/petsService"
 import './Post.css'
-import { environment } from '../app/environment/environment'
 import { Link } from 'react-router-dom'
+import { IPost } from '../../../notices/NoticeServices'
+import { environment } from '../../../app/environment/environment'
+import { loadPet } from '../../../pets/petsService'
+import { getCurrentProfile } from '../../../profile/profileService'
 
 function Post(props: IPost) {
     const [avatar, setAvatar] = useState("")
@@ -27,7 +27,10 @@ function Post(props: IPost) {
 
     const loadImage = async ()=>{
         try {
-            if(props.image) setImage(environment.backendUrl+'/v1/image/'+props.image)
+            if(props.image) {
+                let postedImage=environment.backendUrl+'/v1/image/'+props.image;
+                setImage(postedImage)
+            }
         } catch (error) {
             console.log(error)
         }

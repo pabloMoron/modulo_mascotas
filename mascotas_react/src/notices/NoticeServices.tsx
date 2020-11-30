@@ -1,5 +1,4 @@
 import axios, { AxiosError } from 'axios'
-import { Interface } from 'readline';
 import { environment } from '../app/environment/environment';
 import { logout } from '../user/userService';
 
@@ -76,5 +75,14 @@ export async function FetchPosts(page:number,limit:number,timestamp:number):Prom
             void logout();
         }
         return Promise.reject(error)        
+    }
+}
+
+export async function FindPostById(postId:string):Promise<IPost>{
+    try {
+        const result = (await axios.get(environment.backendUrl+`/v1/posts/${postId}`)).data as IPost
+        return Promise.resolve(result)
+    } catch (error) {
+        return Promise.reject(error)
     }
 }

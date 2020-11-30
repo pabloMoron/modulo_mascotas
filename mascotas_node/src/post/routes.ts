@@ -1,7 +1,6 @@
 "user strict";
 
 import * as express from "express";
-import { parse } from "path";
 import { onlyLoggedIn } from "../token/passport";
 import { ISessionRequest } from "../user/service";
 import * as service from "./services";
@@ -58,5 +57,6 @@ import * as service from "./services";
         message:result.message,
         petId: result.petId,
         timestamp:result.timestamp,
+        image: result.image,
      })
  }
