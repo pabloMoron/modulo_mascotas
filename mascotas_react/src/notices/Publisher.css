@@ -41,6 +41,20 @@
     display: none;
 }
 
+.publisher__petSelector{
+    display: flex;
+    width: 100%;
+}
+
+.publisher__petSelector > select{
+    width: 30%;
+}
+
+.publisher__petSelector > label{
+    width: 30%;
+    margin-left: 20%;
+}
+
 .publisher__bottom{
     display: flex;
     justify-content: space-evenly;

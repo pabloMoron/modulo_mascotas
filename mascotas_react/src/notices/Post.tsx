@@ -6,19 +6,20 @@ import { getCurrentProfile } from '../profile/profileService'
 import { loadPet } from "../pets/petsService"
 import './Post.css'
 import { environment } from '../app/environment/environment'
+import { Link } from 'react-router-dom'
 
 function Post(props: IPost) {
     const [avatar, setAvatar] = useState("")
     const [name, setName] = useState("")
     const [petName, setPetName] = useState("")
     const [image, setImage] = useState("")
+    const [localTimestamp, setLocalTimestamp] = useState("")
     
     const loadProfile = async () => {
         try{
             const profileResult = await getCurrentProfile();
             setName(profileResult.name);
             setAvatar(environment.backendUrl+'/v1/image/'+profileResult.picture);
-            console.log("AVATAR: "+environment.backendUrl+'v1/image/'+profileResult.picture);
         }catch(error){
             console.log(error);
         }
@@ -26,7 +27,7 @@ function Post(props: IPost) {
 
     const loadImage = async ()=>{
         try {
-            if(props.imageId) setImage(environment.backendUrl+'/v1/image/'+props.imageId)
+            if(props.image) setImage(environment.backendUrl+'/v1/image/'+props.image)
         } catch (error) {
             console.log(error)
         }
@@ -41,14 +42,19 @@ function Post(props: IPost) {
         }
     }
 
+    const fixDateTime=()=>{
+        if(props.timestamp){
+            let localDate=new Date(props.timestamp);
+            setLocalTimestamp(localDate.toString());
+        }
+    }
+
     useEffect(() =>  {
         void loadProfile();
         void findPet();
-        if(props.imageId)
+        void fixDateTime();
+        if(props.image)
         void loadImage();
-        else
-        setImage('/assets/gato.gif');
-        ;
     }, [])
 
     return (
@@ -57,7 +63,7 @@ function Post(props: IPost) {
                 <Avatar src={avatar} className="post__avatar" />
                 <div className="post__topInfo">
                     <h3>{name}</h3>
-                    <p>{props.timestamp}</p>
+                    <Link to={`/posts/${props.id}`}>{localTimestamp}</Link>
                 </div>
             </div>
 

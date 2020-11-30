@@ -144,7 +144,6 @@ export async function updateProfilePicture(userId: string, imageId: string): Pro
 export async function currentAvatar(userId:string){
   try{
     let profile = await findForUser(userId);
-    console.log(userId)
     if(!profile){
       return Promise.resolve(null)
     }

@@ -21,7 +21,7 @@
     font-size: medium;
 }
 
-.post__topInfo>p{
+.post__topInfo>Link{
     font-size: small;
     color: gray;
 }

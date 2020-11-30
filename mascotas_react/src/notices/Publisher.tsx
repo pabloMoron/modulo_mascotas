@@ -9,13 +9,16 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import { Link } from 'react-router-dom'
-import {IPost} from './NoticeServices';
+import { IPost } from './NoticeServices';
+import { Pet, loadPets, loadPet } from '../pets/petsService'
+import { ErrorHandler } from '../common/utils/ErrorHandler'
 
 export default function Publisher() {
     const [image, setImage] = useState('/assets/pig_face.ico');
     const [message, setMessage] = useState('')
     const [avatar, setAvatar] = useState('')
-    const [petId, setPetId] = useState('')
+    const [petId, setPetId] = useState('5fb7f123ea5b1f1634fe704e')
+    const [pets, setPets] = useState<Pet[]>([])
     const [postedImage, setPostedImage] = useState('');
     const fileInput = useRef<HTMLInputElement>(null)
 
@@ -27,34 +30,41 @@ export default function Publisher() {
             console.log(error)
         }
     }
-    useEffect(() => {
-        void loadAvatar();
-    }, [])
 
-    const HandleSubmit = () => {
-        alert('Publishing!!' + message)
+    const loadCurrentPets = async () => {
         try {
-            const payload: IPost = {//acomodar esto
-                petId: petId,
-                imageId: postedImage,
-                message: message,
-            }
-            UploadPost(payload);
-            setMessage('');
-            setImage('/assets/pig_nose.ico');
+            const resultPets = await loadPets();
+            setPets(resultPets);
         } catch (error) {
-            alert("invalid URL")
+            console.log(error);
         }
     }
 
-    const HandleLive = () => {
-        alert('live');
+    useEffect(() => {
+        void loadAvatar();
+        void loadCurrentPets();
+    }, [])
+
+    const HandleSubmit = async () => {
+        alert('Publishing!!' + message)
+        try {
+            const payload: IPost = {
+                petId: petId,
+                message: message,
+            }
+            if (postedImage != "") payload.image = postedImage;
+            await UploadPost(payload);
+            window.location.reload();
+        } catch (error) {
+            alert(error)
+        }
     }
 
     const imageSelect = () => {
         const files = fileInput.current?.files
         if ((files) == null || (files)[0] == null) {
             setImage("/assets/pig_nose.ico");
+            setPostedImage("");
             return
         } else {
             let imageBase64;
@@ -67,7 +77,6 @@ export default function Publisher() {
         }
         let url = URL.createObjectURL((files)[0]);
         if (url) {
-            console.log(url)
             setImage(url)
         }
 
@@ -101,7 +110,17 @@ export default function Publisher() {
                 </Form>
             </div>
 
+            <div className="publisher__petSelector">
+                <label>Mascota</label>
+                <select
+                    value={petId}
+                    onChange={e => setPetId(e.target.value)}
+                >
+                    {pets.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+                </select>
+            </div>
             <div className="publisher__bottom">
+
                 <div className="publisher__option" onClick={HandlePhoto}>
                     <PhotoLibraryIcon style={{ color: "green" }} />
                     <input type="file"

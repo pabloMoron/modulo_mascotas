@@ -9,7 +9,6 @@ export default function StoryReel() {
     }
     
     useEffect(() => {
-        console.log()
     }, [])
 
     return(

@@ -7,9 +7,8 @@ export interface IPost extends mongoose.Document{
     profile: mongoose.Schema.Types.ObjectId;
     timestamp?: Number;
     image?: string;
-    pet:mongoose.Schema.Types.ObjectId;
+    petId:mongoose.Schema.Types.ObjectId;
     message?: string,
-    enabled?:Boolean;
 }
 
 export let PostSchema = new mongoose.Schema({
@@ -26,7 +25,7 @@ export let PostSchema = new mongoose.Schema({
         type: String,
         ref: "Image"
     },
-    pet:{
+    petId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Pet",
         required: "Mascota requerida"

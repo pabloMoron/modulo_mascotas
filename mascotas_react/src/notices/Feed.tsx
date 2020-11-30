@@ -1,46 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import './Feed.css';
+import { IPost, FetchPosts } from './NoticeServices';
+import InfiniteScroll from "react-infinite-scroll-component";
 import Post from './Post';
-import {IPost} from './NoticeServices';
+import './Feed.css';
 
 function Feed() {
-const [posts, setPosts] = useState<IPost[]>([]);
-    useEffect(() => {
-        setPosts([
-            // crear servicio fetchStories
-            {
-                profileId:"5fb7f0e6ea5b1f1634fe704d",
-                message:"Odio a los perros, el olor a perro, los pelos de los perros y las babas de los perros",
-                petId:"Toni",
-                timestamp:"12:00:00",
-                id:"1"
-            },
-            {
-                profileId:"5fb7f0e6ea5b1f1634fe704d",
-                imageId:"bfb73330-2b4e-11eb-86ba-3724b418dd5b",
-                message:"Odio a los perros, el olor a perro, los pelos de los perros y las babas de los perros",
-                petId:"Toni",
-                timestamp:"12:00:00",
-                id:"2"
-            }
-        ]);       
-    }, [])
-    return (
+    const [posts, setPosts] = useState<IPost[]>([]);
+    const [timestamp, setTimestamp] = useState(new Date().getTime());
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(4)
+    const [hasMore, sethasMore] = useState(true)
 
+     const findPosts = async () => {
+        const result = await FetchPosts(page, limit, timestamp);
+        let newPosts = [...posts].concat(result.posts);
+        
+        if(result.posts.length==0){
+            sethasMore(false);
+            return
+        }
+
+        setPosts(newPosts);
+        setPage(result.next.nextPage);
+        setLimit(result.next.limit); //La idea era calcular el resto de la ultima pagina
+    }
+
+    useEffect(() => {
+        void findPosts();
+    }, [])
+
+    return (
+        ///Me acabo de dar cuenta que puedo pasar el id del post
+        ///y en useEfect de post asignar todos los states, mala mia
         <div className="feed">
-            {posts.map(post=>(
-                <Post
-                profileId={post.profileId}
-                id={post.id}
-                imageId={post.imageId}
-                message={post.message}
-                petId={post.petId}
-                timestamp={post.timestamp}
-                key={post.id}
-                />
-            ))}
+            <InfiniteScroll
+                dataLength={posts.length}
+                next={findPosts}
+                hasMore={hasMore}
+                loader={<h4>Fetching data...</h4>}
+                endMessage={
+                    <p style={{ textAlign: 'center' }}>
+                        <b>Ya viste todo bro</b>
+                    </p>
+                }>
+
+                {posts.map((post, i) => (
+                    <Post
+                        key={i}
+                        profileId={post.profileId}
+                        id={post.id}
+                        image={post.image}
+                        message={post.message}
+                        petId={post.petId}
+                        timestamp={post.timestamp}
+                    />
+                ))}
+
+            </InfiniteScroll>
         </div>
-    )
+    );
 }
 
 export default Feed

@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios'
+import { Interface } from 'readline';
 import { environment } from '../app/environment/environment';
 import { logout } from '../user/userService';
 
@@ -6,7 +7,7 @@ export interface IPost{
     petId:string,
     timestamp?: string,
     id?:string,
-    imageId?: string,
+    image?: string,
     message?: string,
     profileId?: string,
 }
@@ -38,7 +39,6 @@ export async function FindAvatar(): Promise<string> {
 
 export async function UploadPost(payload:IPost): Promise<UploadPostId> {
     try {
-        console.log(payload);
         const res = (await axios.post(environment.backendUrl + '/v1/posts/',payload)).data as UploadPostId;
         return Promise.resolve(res);
     } catch (error) {
@@ -63,23 +63,18 @@ export async function UploadStory() {
 }
 
 
-export async function FetchStories() {
+export async function FetchStories(page:number,limit:number,timestamp:number):Promise<Array<IPost>> {
+    return []
+}
+
+export async function FetchPosts(page:number,limit:number,timestamp:number):Promise<any> {
     try {
-        
+        const result = (await axios.get(environment.backendUrl+`/v1/posts/?page=${page}&limit=${limit}&timestamp=${timestamp}`)).data as IPost[]
+        return Promise.resolve(result);
     } catch (error) {
         if ((error as AxiosError).code === "401") {
             void logout();
         }
         return Promise.reject(error)        
     }
-}
-
-export async function FetchPosts() {
-    try {
-        
-    } catch (error) {
-        if ((error as AxiosError).code === "401") {
-            void logout();
-        }
-        return Promise.reject(error)    }
 }
